@@ -1,0 +1,16 @@
+@import "variables";
+
+#app{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+}
+body{
+  padding: 0;
+  margin: 0;
+  font-family: $font-family;
+}
+*{
+  box-sizing: border-box;
+}
