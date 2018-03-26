@@ -1,4 +1,4 @@
-export const Greating = ({name}) => {
+export const Greating = ({ name }) => {
   let partOfDay = '';
   const hours = new Date().getHours();
 

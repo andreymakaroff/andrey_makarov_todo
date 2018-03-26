@@ -1,4 +1,6 @@
-export const Numbers = ({ from, to, even, odd }) => {
+export const Numbers = ({
+  from, to, even, odd
+}) => {
   const arr = [];
   for (let i = from; i <= to; i++) {
     if (odd) {

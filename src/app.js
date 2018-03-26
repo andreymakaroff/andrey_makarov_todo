@@ -9,7 +9,6 @@ const component = (
   <React.Fragment>
     <Header />
     <Greating name="Petro" />
-    <UsersList />
     <div style={{ display: 'flex' }}>
       <Numbers
         from={1}
@@ -26,6 +25,7 @@ const component = (
         to={10}
       />
     </div>
+    <UsersList />
   </React.Fragment>
 );
 
