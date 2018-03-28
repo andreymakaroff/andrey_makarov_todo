@@ -1,6 +1,7 @@
 import './header.scss';
 
 import { Navigation } from '../Navigation';
+import { ButtonSwitcher } from '../ButtonSwitcher';
 
 export const Header = () => (
   <header className="header">
@@ -10,6 +11,7 @@ export const Header = () => (
         alt="logo"
       />
     </a>
+    <ButtonSwitcher />
     <Navigation isLogin />
   </header>
 );

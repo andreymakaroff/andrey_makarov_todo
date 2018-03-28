@@ -1,0 +1,20 @@
+.buttonSwitcher{
+  &__wrapper{
+    min-height: 80px;
+  }
+  &__btn{
+    width: 100px;
+    border-radius: 5px;
+    color: yellow;
+    background: #2e2e2e;
+    height: 20px;
+    outline: none;
+    &:hover{
+      background: lighten(#2e2e2e,.9)
+    }
+    &.active{
+      background: yellow;
+      color: #2e2e2e;
+    }
+  }
+}
