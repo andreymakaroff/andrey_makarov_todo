@@ -20,7 +20,8 @@ const plugins = [
     allChunks: true
   }),
   new webpack.ProvidePlugin({
-    React: 'react'
+    React: 'react',
+    Component: ['react', 'Component']
   })
 ];
 
@@ -39,8 +40,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],
-            plugins: ['syntax-dynamic-import']
+            presets: ['env', 'react'],  // + add react for jsx
+            plugins: ['syntax-dynamic-import', 'transform-class-properties']  //transform-class-properties-- for bind this
           }
         }
       },
@@ -55,12 +56,16 @@ module.exports = {
           ]
         })
       },
-      // {
-      //   enforce: 'pre',
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      // }
+
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true
+        }
+      }
 
     ]
   },
@@ -72,6 +77,7 @@ module.exports = {
       chunks: 'all'
     },
   },
+
   mode: 'development',
 
   devServer: {
