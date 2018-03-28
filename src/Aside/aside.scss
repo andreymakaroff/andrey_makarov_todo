@@ -1,0 +1,7 @@
+@import "../variables";
+
+.aside{
+  @include padding(10px);
+  flex-grow: 0.3;
+  background: $asideBg;
+}

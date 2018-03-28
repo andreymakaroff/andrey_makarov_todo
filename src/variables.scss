@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+//variables
+$headerBg: #fff9b6;
+$asideBg: #d8d8d8;
+$contentBg: #e0feca;
+$footerBg: #150e24;
+$font-family: Roboto, serif;
+//mixins
+@mixin padding($pad: 15px) {
+  padding: $pad;
+}

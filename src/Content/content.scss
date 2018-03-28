@@ -1,0 +1,7 @@
+@import "../variables";
+
+.content{
+  @include padding(10px);
+  flex-grow: 0.7;
+  background: $contentBg;
+}
