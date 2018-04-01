@@ -10,7 +10,7 @@ export class Main extends React.Component {
     currentUser: '',
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getUsers();
   }
 

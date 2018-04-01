@@ -4,10 +4,12 @@ import './styles.scss';
 import { Header } from './Header';
 import { Main } from './Main';
 import { Footer } from './Footer';
+import { Form } from './Form';
 
 const component = (
   <React.Fragment>
     <Header />
+    <Form />
     <Main />
     <Footer />
   </React.Fragment>
