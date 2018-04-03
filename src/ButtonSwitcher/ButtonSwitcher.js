@@ -32,7 +32,7 @@ export class ButtonSwitcher extends React.Component {
   handlerBtnNearest = () => {
     let distance = Infinity;
     let userName = '';
-    let minLen = this.state.users.map(user => {
+    this.state.users.map(user => {
       const currentName = user.name;
       const lat1 = user.address.geo.lat;
       const lon1 = user.address.geo.lng;
@@ -104,9 +104,6 @@ export class ButtonSwitcher extends React.Component {
         >
           {this.state.active ? 'Hide' : 'Show'}
         </button>
-
-
-
         <button
           className={`buttonSwitcher__btn ${this.state.active && 'active'}`}
           onClick={this.handlerBtnGeo}
