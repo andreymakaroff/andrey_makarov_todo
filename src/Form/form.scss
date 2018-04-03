@@ -1,0 +1,14 @@
+@import "../variables";
+
+input {
+  &.error {
+    border: 1px solid red;
+  }
+  &.correct {
+    border: 1px solid green;
+  }
+}
+.red{
+  color: #ff3a38;
+  padding-left: 10px;
+}
