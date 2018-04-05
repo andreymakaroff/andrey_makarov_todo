@@ -9,7 +9,7 @@ export class Form extends React.Component {
 
 
   handleChange = ({ target }) => {
-    if ( target.type === 'checkbox') {
+    if (target.type === 'checkbox') {
       this.setState({ [target.name]: target.checked });
       return;
     }
@@ -17,7 +17,13 @@ export class Form extends React.Component {
   };
 
   render() {
-    const { name, age, users, role, authorized } = this.state;
+    const {
+      name,
+      age,
+      users,
+      role,
+      authorized
+    } = this.state;
     return (
       <form>
         <input
@@ -31,13 +37,14 @@ export class Form extends React.Component {
           value={role}
           onChange={this.handleChange}
         >
-          {users.map(user =>
-            (<option
+          {users.map(user => (
+            <option
               key={user}
               value={user}
             >
               {user}
-              </option>))}
+            </option>))
+          }
         </select>
         <input
           type="text"
@@ -51,19 +58,11 @@ export class Form extends React.Component {
           name="age"
           value={age}
         />
-        <p>name: {
-          name
-        }</p>
-        <p>age: {
-          age
-        }</p>
-        <p>select: {
-          role
-        }</p>
+        <p>name: {name}</p>
+        <p>age: {age}</p>
+        <p>select: {role}</p>
         <button onClick={this.handleChange}>
-          {
-            name
-          }
+          {name}
         </button>
       </form>
     );

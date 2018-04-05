@@ -4,7 +4,6 @@ export class ButtonSwitcher extends React.Component {
   state = {
     active: false,
     user: '',
-    users: [],
     nearestUser: {
       userName: '',
       distance: '',
@@ -14,7 +13,7 @@ export class ButtonSwitcher extends React.Component {
       longitude: '',
     }
   };
-  constructor(props){
+  constructor(props) {
     super(props);
     this.getGeo();
   }
@@ -22,17 +21,10 @@ export class ButtonSwitcher extends React.Component {
   handlerBtn = () => {
     this.setState(prevState => ({ active: !prevState.active }));
   };
-  getUsers = () => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(data => data.json())
-      .then(users => this.setState({
-        users,
-      }))
-  };
-  handlerBtnNearest = () => {
+  calcNearest = (users) => {
     let distance = Infinity;
     let userName = '';
-    this.state.users.map(user => {
+    users.forEach((user) => {
       const currentName = user.name;
       const lat1 = user.address.geo.lat;
       const lon1 = user.address.geo.lng;
@@ -51,9 +43,8 @@ export class ButtonSwitcher extends React.Component {
           distance = result;
           userName = currentName;
         }
-        console.log(result, currentName);
       };
-      console.log(calcDistance(lat1, lon1, lat2, lon2));
+      calcDistance(lat1, lon1, lat2, lon2);
     });
     this.setState({
       nearestUser: {
@@ -62,6 +53,15 @@ export class ButtonSwitcher extends React.Component {
       }
     });
   };
+  handlerBtnNearest = () => {
+    const asyncFn = async () => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users');
+      const users = await response.json();
+      await this.calcNearest(users);
+    };
+    asyncFn();
+  };
+
   getGeo = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -94,8 +94,6 @@ export class ButtonSwitcher extends React.Component {
   };
 
   render() {
-
-
     return (
       <div className="buttonSwitcher__wrapper">
         <button
@@ -104,27 +102,19 @@ export class ButtonSwitcher extends React.Component {
         >
           {this.state.active ? 'Hide' : 'Show'}
         </button>
-        <button
-          className={`buttonSwitcher__btn ${this.state.active && 'active'}`}
-          onClick={this.handlerBtnGeo}
-        >
-          GEO
-          {this.state.location.latitude}
-          {this.state.location.longitude}
-        </button>
-        <br/>
+        <div>Geo here:
+          <div>
+            latitude:{this.state.location.latitude}
+          </div>
+          <div>
+            longitude:{this.state.location.longitude}
+          </div>
+        </div>
 
         <button
-          className={`buttonSwitcher__btn ${this.state.active && 'active'}`}
-          onClick={this.getUsers}
-        >
-          getUsers
-        </button>
-        <button
-          className={`buttonSwitcher__btn ${this.state.active && 'active'}`}
           onClick={this.handlerBtnNearest}
         >
-          handlerBtnNearest
+          fetch and calc nearest user
         </button>
 
         <b>
@@ -134,7 +124,6 @@ export class ButtonSwitcher extends React.Component {
           {this.state.nearestUser.userName}<br/>
           {this.state.nearestUser.distance}
         </b>
-
         <p>
           {this.state.active && 'Hidden text here!'}
         </p>
