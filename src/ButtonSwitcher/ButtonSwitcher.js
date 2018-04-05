@@ -77,21 +77,6 @@ export class ButtonSwitcher extends React.Component {
       }
     );
   };
-  handlerBtnGeo = () => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.setState({
-          location: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          }
-        });
-      },
-      () => {
-        alert("Geo Location not supported");
-      }
-    );
-  };
 
   render() {
     return (
