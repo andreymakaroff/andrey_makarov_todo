@@ -9,7 +9,8 @@ import { Form } from './Form';
 const component = (
   <React.Fragment>
     <Header />
-    <Form excluded={[ 'email' ]} disabled={[ 'first name' ]} />
+    <Form excluded={['email']} disabled={['first name']} />
+    {/* <Form /> */}
     <Main />
     <Footer />
   </React.Fragment>

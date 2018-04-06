@@ -7,7 +7,7 @@ export const Header = () => (
   <header className="header">
     <a href="/" className="logo">
       <img
-        src="https://avatars3.githubusercontent.com/u/11967728?s=460&v=4"
+        src="../images/bg.jpg"
         alt="logo"
       />
     </a>

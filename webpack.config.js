@@ -2,17 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
-
-let stylesLoader = [
-  {loader: 'style-loader'},
-  {loader: "css-loader"},
-  {loader: "sass-loader"}
-];
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const images = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
 
 const plugins = [
   new HtmlWebpackPlugin({
     title: 'Test app',
-    template: 'index.html'
+    template: 'index.html',
+    favicon: 'images/favicon.ico'
   }),
   new webpack.HotModuleReplacementPlugin(),
   new ExtractTextPlugin({
@@ -22,7 +19,10 @@ const plugins = [
   new webpack.ProvidePlugin({
     React: 'react',
     Component: ['react', 'Component']
-  })
+  }),
+  new CopyWebpackPlugin([
+    ...images.map(ext => ({ from: `**/*/*.${ext}`, to: 'images/[name].[ext]' }))
+  ])
 ];
 
 module.exports = {
@@ -40,8 +40,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],  // + add react for jsx
-            plugins: ['syntax-dynamic-import', 'transform-class-properties']  //transform-class-properties-- for bind this
+            presets: ['env', 'react'],
+            plugins: ['syntax-dynamic-import', 'transform-class-properties']
           }
         }
       },
@@ -65,8 +65,20 @@ module.exports = {
         options: {
           emitWarning: true
         }
-      }
+      },
 
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              name: '[name].[ext]',
+              limit: 100
+            }
+          }
+        ]
+      }
     ]
   },
 
@@ -83,8 +95,7 @@ module.exports = {
   devServer: {
     contentBase: path.resolve('dist'),
     publicPath: '/',
-    port: 9000,
+    port: 9090,
     hot: true
   }
 };
-
