@@ -3,7 +3,6 @@ import './buttonSwitcher.scss';
 export class ButtonSwitcher extends React.Component {
   state = {
     active: false,
-    user: '',
     nearestUser: {
       userName: '',
       distance: '',
@@ -13,6 +12,7 @@ export class ButtonSwitcher extends React.Component {
       longitude: '',
     }
   };
+
   constructor(props) {
     super(props);
     this.getGeo();
@@ -21,6 +21,7 @@ export class ButtonSwitcher extends React.Component {
   handlerBtn = () => {
     this.setState(prevState => ({ active: !prevState.active }));
   };
+
   calcNearest = (users) => {
     let distance = Infinity;
     let userName = '';
@@ -37,8 +38,8 @@ export class ButtonSwitcher extends React.Component {
         const a = 0.5 - c((lat2 - lat1) * p) / 2 +
           c(lat1 * p) * c(lat2 * p) *
           (1 - c((lon2 - lon1) * p)) / 2;
+        const result = Math.floor(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
 
-        const result = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
         if (distance > result) {
           distance = result;
           userName = currentName;
@@ -64,7 +65,7 @@ export class ButtonSwitcher extends React.Component {
 
   getGeo = () => {
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         this.setState({
           location: {
             latitude: position.coords.latitude,
@@ -73,7 +74,7 @@ export class ButtonSwitcher extends React.Component {
         });
       },
       () => {
-        alert("Geo Location not supported");
+        console.log('Geo Location not supported');
       }
     );
   };
@@ -102,13 +103,13 @@ export class ButtonSwitcher extends React.Component {
           fetch and calc nearest user
         </button>
 
-        <b>
-          {this.state.user}
-        </b>
-        <b>
-          {this.state.nearestUser.userName}<br/>
-          {this.state.nearestUser.distance}
-        </b>
+        {
+          this.state.nearestUser.distance &&
+          <p>
+            {this.state.nearestUser.userName}<br />
+            {this.state.nearestUser.distance} km.
+          </p>
+        }
         <p>
           {this.state.active && 'Hidden text here!'}
         </p>
