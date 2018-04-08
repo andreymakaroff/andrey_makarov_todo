@@ -1,4 +1,5 @@
 import './form.scss';
+import PropTypes from 'prop-types';
 
 export class Form extends Component {
   constructor(props) {
@@ -76,8 +77,7 @@ export class Form extends Component {
 
   render() {
     const { state, fields } = this;
-    const { excluded = [], disabled = [] } = this.props;
-
+    const { excluded, disabled } = this.props;
 
     return (
       <form
@@ -116,3 +116,13 @@ export class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  excluded: PropTypes.arrayOf(PropTypes.string),
+  disabled: PropTypes.arrayOf(PropTypes.string)
+};
+
+Form.defaultProps = {
+  excluded: [],
+  disabled: []
+};
