@@ -1,7 +1,40 @@
 @import "../variables";
 
-.aside{
-  @include padding(10px);
-  flex-grow: 0.3;
-  background: $asideBg;
+.tab{
+  padding: 15px;
+  &-content{
+    border: 1px solid cornflowerblue;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: none;
+    padding: 15px;
+  }
+}
+.nav-tab{
+  background: #fff;
+  border-bottom: 1px solid cornflowerblue;
+  ul{
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    li{
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      border: 1px solid cornflowerblue;
+      position: relative;
+      top: 1px;
+      padding: 5px 15px;
+      &.active{
+        background: #91b6ff;
+        border-bottom: 1px solid #91b6ff;
+        a{
+          color: white;
+        }
+      }
+      a{
+        text-decoration: none;
+      }
+    }
+  }
 }

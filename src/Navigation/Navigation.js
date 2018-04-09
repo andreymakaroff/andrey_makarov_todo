@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
+
 import './navigation.scss';
+import { Form } from '../Form/Form';
 
 export const Navigation = (props) => (
   <nav>
@@ -12,3 +15,12 @@ export const Navigation = (props) => (
     </ul>
   </nav>
 );
+
+
+Form.propTypes = {
+  isLogin: PropTypes.array
+};
+
+Form.defaultProps = {
+  isLogin: []
+};

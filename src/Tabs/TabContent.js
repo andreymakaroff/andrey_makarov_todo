@@ -1,5 +1,17 @@
-export const TabContent = ({content}) => (
+import PropTypes from 'prop-types';
+import { Tabs } from './Tabs';
+
+export const TabContent = ({ content }) => (
   <section className="tab-content">
-    <p>{content}</p>
+    <div>{content}</div>
   </section>
 );
+
+
+TabContent.propTypes = {
+  content: PropTypes.string,
+};
+
+TabContent.defaultProps = {
+  content: '',
+};

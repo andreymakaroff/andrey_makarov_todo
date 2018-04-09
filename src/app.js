@@ -6,10 +6,11 @@ import { Main } from './Main';
 import { Footer } from './Footer';
 import { Form } from './Form';
 import { Tabs } from './Tabs';
+
 const tabs = [
-  {id: 0, title: 'Tab 1', content: 'Some text is here'},
-  {id: 1, title: 'Tab 2', content: 'Another content'},
-  {id: 2, title: 'Tab 1', content: 'Third text'}
+  { id: 0, title: 'Tab 1', content: 'Some text is here' },
+  { id: 1, title: 'Tab 2', content: 'Another content' },
+  { id: 2, title: 'Tab 1', content: 'Third text' }
 ];
 
 
