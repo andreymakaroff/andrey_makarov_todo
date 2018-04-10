@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import './tabs.scss';
 
-export const TabNav = ({ list, select, active }) => {
+export const TabNav = ({ list, select, activeIndex }) => {
   const onClick = (e, id) => {
     select(id);
     e.preventDefault();
@@ -10,16 +9,16 @@ export const TabNav = ({ list, select, active }) => {
   return (
     <nav className="nav-tab">
       <ul>
-        {list.map(el =>
+        {list.map((el, index) =>
           (<li
-            key={el.id}
-            className={el.id === active ? 'active' : null}
+            key={index}
+            className={activeIndex === index ? 'active' : ''}
           >
             <a
               href="/"
-              onClick={e => onClick(e, el.id)}
+              onClick={e => onClick(e, index)}
             >
-              {el.title}
+              {el}
             </a>
           </li>))
         }
@@ -27,14 +26,3 @@ export const TabNav = ({ list, select, active }) => {
     </nav>);
 };
 
-TabNav.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.object),
-  active: PropTypes.number,
-  select: PropTypes.func
-};
-
-TabNav.defaultProps = {
-  list: [],
-  active: '',
-  select: () => {}
-};
