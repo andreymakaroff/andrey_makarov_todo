@@ -29,7 +29,8 @@ module.exports = {
   entry: ['babel-polyfill', './app.js'],
   context: path.resolve('src'),
   output: {
-    filename: 'bundle-[name].js'
+    filename: 'bundle-[name].js',
+    publicPath: '/'
   },
 
   module: {
@@ -96,6 +97,7 @@ module.exports = {
     contentBase: path.resolve('dist'),
     publicPath: '/',
     port: 9090,
-    hot: true
+    hot: true,
+    historyApiFallback: true
   }
 };
