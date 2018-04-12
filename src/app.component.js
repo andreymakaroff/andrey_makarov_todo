@@ -1,10 +1,10 @@
 import './styles.scss';
-import { Header } from './Header';
-import { Main } from './Main';
-import { Footer } from './Footer';
-import { Form } from './Form';
-import { Tabs, Tab } from './Tabs';
-import { TaskList } from './TaskList';
+import {Header} from './Header';
+import {Main} from './Main';
+import {Footer} from './Footer';
+import {Form} from './Form';
+import {Tab, Tabs} from './Tabs';
+import {TaskList} from './TaskList';
 
 
 const tabs = [
@@ -22,7 +22,9 @@ export const App = () => (
 
       <Tab title="tab 1">
         <h2>Head 1</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae, blanditiis error excepturi fuga inventore maiores minima natus nihil officiis perferendis porro quam quibusdam quos rerum temporibus, velit vitae? Ipsum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae, blanditiis error excepturi fuga
+          inventore maiores minima natus nihil officiis perferendis porro quam quibusdam quos rerum temporibus, velit
+          vitae? Ipsum.</p>
       </Tab>
 
       <Tab title="tab 2">

@@ -3,8 +3,6 @@ import './buttonSwitcher.scss';
 export class ButtonSwitcher extends React.Component {
   state = {
     active: false,
-    user: '',
-    users: [],
     nearestUser: {
       userName: '',
       distance: '',
@@ -14,7 +12,8 @@ export class ButtonSwitcher extends React.Component {
       longitude: '',
     }
   };
-  constructor(props){
+
+  constructor(props) {
     super(props);
     this.getGeo();
   }
@@ -22,17 +21,11 @@ export class ButtonSwitcher extends React.Component {
   handlerBtn = () => {
     this.setState(prevState => ({ active: !prevState.active }));
   };
-  getUsers = () => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(data => data.json())
-      .then(users => this.setState({
-        users,
-      }))
-  };
-  handlerBtnNearest = () => {
+
+  calcNearest = (users) => {
     let distance = Infinity;
     let userName = '';
-    this.state.users.map(user => {
+    users.forEach((user) => {
       const currentName = user.name;
       const lat1 = user.address.geo.lat;
       const lon1 = user.address.geo.lng;
@@ -45,15 +38,14 @@ export class ButtonSwitcher extends React.Component {
         const a = 0.5 - c((lat2 - lat1) * p) / 2 +
           c(lat1 * p) * c(lat2 * p) *
           (1 - c((lon2 - lon1) * p)) / 2;
+        const result = Math.floor(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
 
-        const result = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
         if (distance > result) {
           distance = result;
           userName = currentName;
         }
-        console.log(result, currentName);
       };
-      console.log(calcDistance(lat1, lon1, lat2, lon2));
+      calcDistance(lat1, lon1, lat2, lon2);
     });
     this.setState({
       nearestUser: {
@@ -62,9 +54,18 @@ export class ButtonSwitcher extends React.Component {
       }
     });
   };
+  handlerBtnNearest = () => {
+    const asyncFn = async () => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users');
+      const users = await response.json();
+      await this.calcNearest(users);
+    };
+    asyncFn();
+  };
+
   getGeo = () => {
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         this.setState({
           location: {
             latitude: position.coords.latitude,
@@ -73,29 +74,12 @@ export class ButtonSwitcher extends React.Component {
         });
       },
       () => {
-        alert("Geo Location not supported");
-      }
-    );
-  };
-  handlerBtnGeo = () => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.setState({
-          location: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          }
-        });
-      },
-      () => {
-        alert("Geo Location not supported");
+        console.log('Geo Location not supported');
       }
     );
   };
 
   render() {
-
-
     return (
       <div className="buttonSwitcher__wrapper">
         <button
@@ -104,37 +88,28 @@ export class ButtonSwitcher extends React.Component {
         >
           {this.state.active ? 'Hide' : 'Show'}
         </button>
-        <button
-          className={`buttonSwitcher__btn ${this.state.active && 'active'}`}
-          onClick={this.handlerBtnGeo}
-        >
-          GEO
-          {this.state.location.latitude}
-          {this.state.location.longitude}
-        </button>
-        <br/>
+        <div>Geo here:
+          <div>
+            latitude:{this.state.location.latitude}
+          </div>
+          <div>
+            longitude:{this.state.location.longitude}
+          </div>
+        </div>
 
         <button
-          className={`buttonSwitcher__btn ${this.state.active && 'active'}`}
-          onClick={this.getUsers}
-        >
-          getUsers
-        </button>
-        <button
-          className={`buttonSwitcher__btn ${this.state.active && 'active'}`}
           onClick={this.handlerBtnNearest}
         >
-          handlerBtnNearest
+          fetch and calc nearest user
         </button>
 
-        <b>
-          {this.state.user}
-        </b>
-        <b>
-          {this.state.nearestUser.userName}<br/>
-          {this.state.nearestUser.distance}
-        </b>
-
+        {
+          this.state.nearestUser.distance &&
+          <p>
+            {this.state.nearestUser.userName}<br />
+            {this.state.nearestUser.distance} km.
+          </p>
+        }
         <p>
           {this.state.active && 'Hidden text here!'}
         </p>
