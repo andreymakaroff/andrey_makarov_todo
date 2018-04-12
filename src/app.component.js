@@ -1,5 +1,3 @@
-import ReactDom from 'react-dom';
-
 import './styles.scss';
 import { Header } from './Header';
 import { Main } from './Main';
