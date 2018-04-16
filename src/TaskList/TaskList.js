@@ -5,13 +5,10 @@ import { Tabs, Tab } from '../Tabs';
 export class TaskList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: 0
-    };
   }
 
-  clickTab = (id) => {
-    this.setState({ id });
+  handleAddNew = ( index ) => {
+    console.log(index);
   };
 
   render() {
@@ -103,8 +100,8 @@ export class TaskList extends Component {
     ];
 
     return (
-      <Tabs>
-        {tasksPerWeek.map((tasks, index) =>
+      <Tabs selectedIndex={new Date().getDay()}>
+        {tasksPerWeek.map((tasks, index) => (
           <Tab
             title={days[index]}
             key={index}
@@ -112,8 +109,8 @@ export class TaskList extends Component {
             <ol>
               {tasks.map(task => <li key={tasks.id}>{task.title}</li>)}
             </ol>
-            <button>Add new</button>
-          </Tab>
+            <button onClick={() => this.handleAddNew(index)}>Add new</button>
+          </Tab>)
         )}
       </Tabs>
     );

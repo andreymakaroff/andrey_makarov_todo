@@ -1,7 +1,7 @@
-import './content.scss';
+import './userPosts.scss';
 
-export const Content = ({ posts, currentUser }) => (
-  <content className="content">
+export const UserPosts = ({ posts, currentUser }) => (
+  <content className="userPosts">
     {
       posts.length > 0 ?
         <React.Fragment>

@@ -1,8 +1,8 @@
 import './tabs.scss';
 
 export const TabNav = ({ list, select, activeIndex }) => {
-  const onClick = (e, id) => {
-    select(id);
+  const onClick = (e, index) => {
+    select(index);
     e.preventDefault();
   };
 

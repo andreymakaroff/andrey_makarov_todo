@@ -7,29 +7,23 @@ import { Tabs, Tab } from './Tabs';
 import { TaskList } from './TaskList';
 
 
-const tabs = [
-  { id: 0, title: 'Tab 1', content: 'Some text is here' },
-  { id: 1, title: 'Tab 2', content: 'Another content' },
-  { id: 2, title: 'Tab 1', content: 'Third text' }
-];
+import { UserList } from './UserList';
+import { Gallery } from './Gallery';
 
 
 export const App = () => (
   <React.Fragment>
     <Header />
     <TaskList />
-    <Tabs>
 
+    <Tabs selectedIndex={1}>
       <Tab title="tab 1">
-        <h2>Head 1</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae, blanditiis error excepturi fuga inventore maiores minima natus nihil officiis perferendis porro quam quibusdam quos rerum temporibus, velit vitae? Ipsum.</p>
+        <UserList />
       </Tab>
 
       <Tab title="tab 2">
-        <h2>Head 2</h2>
-        <p>uibusdam quos rerum temporibus, velit vitae? Ipsum.</p>
+        <Gallery />
       </Tab>
-
     </Tabs>
 
     <Form excluded={['email']} disabled={['first name']} />

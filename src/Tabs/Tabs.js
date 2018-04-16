@@ -6,12 +6,12 @@ export class Tabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0
+      selectedIndex: props.selectedIndex ? props.selectedIndex : 0
     };
   }
 
-  clickTab = (id) => {
-    this.setState({ id });
+  clickTab = (index) => {
+    this.setState({ selectedIndex: index });
   };
 
   render() {
@@ -24,10 +24,10 @@ export class Tabs extends Component {
         <TabNav
           list={links}
           select={this.clickTab}
-          activeIndex={this.state.id}
+          activeIndex={this.state.selectedIndex}
         />
         <div className="tab-content">
-          {contents[this.state.id] }
+          {contents[this.state.selectedIndex] }
         </div>
 
       </section>

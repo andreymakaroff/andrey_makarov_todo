@@ -33,7 +33,6 @@ export class Form extends Component {
     }
 
     this.setState({ error });
-
     if (error) return;
 
     console.log(this.getFormValues());
@@ -41,7 +40,7 @@ export class Form extends Component {
 
   validate = (index) => {
     const field = this.fields[index];
-    let stateField = this.state[field.label];
+    const stateField = this.state[field.label];
 
     if (field.reg.test(stateField.value)) {
       stateField.error = '';
@@ -59,17 +58,17 @@ export class Form extends Component {
 
     return this.fields
       .filter(({label}) => !excluded.includes(label) && !disabled.includes(label))
-      .some(({label}) => {
-        const {value, error} = this.state[label];
+      .some(({ label }) => {
+        const { value, error } = this.state[label];
         return !value || error;
       });
   }
 
-  getFormValues()  {
+  getFormValues() {
     const form = {};
 
     this.fields.forEach((field) => {
-      form[field.label] = this.state[field.label].value
+      form[field.label] = this.state[field.label].value;
     });
 
     return form;
@@ -85,7 +84,7 @@ export class Form extends Component {
         onSubmit={this.save}
       >
         <ul>{fields
-          .filter(({label}) => !excluded.includes(label))
+          .filter(({ label }) => !excluded.includes(label))
           .map(({ label, secure }, index) => {
           const stateField = state[label]; // this.state['email'] = { value: '' }
 

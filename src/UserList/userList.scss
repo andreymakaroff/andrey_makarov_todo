@@ -1,0 +1,8 @@
+.userList{
+  display: flex;
+  &__list{
+    background: #f1f1f1;
+    border: 1px solid;
+    min-width: 40%;
+  }
+}
