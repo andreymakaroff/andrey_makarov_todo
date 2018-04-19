@@ -3,6 +3,13 @@ import { TabNav } from './TabNav';
 import { Tab } from './Tab';
 
 export class Tabs extends Component {
+
+  static getDerivedStateFromProps(next, prev){
+    if (next.selectedIndex !== prev.selectedIndex){
+      return { selectedIndex: next.selectedIndex };
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +20,10 @@ export class Tabs extends Component {
   clickTab = (index) => {
     this.setState({ selectedIndex: index });
   };
+
+  // componentDidMount() {
+  //   setTimeout(() => this.clickTab(0), 2000);
+  // };
 
   render() {
     const tabs = this.props.children.filter(child => child.type === Tab);

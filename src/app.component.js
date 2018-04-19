@@ -1,35 +1,37 @@
+import { Route } from 'react-router-dom';
+
 import './styles.scss';
+import { Routing } from './Routing';
+
 import { Header } from './Header';
-import { Main } from './Main';
 import { Footer } from './Footer';
-import { Form } from './Form';
-import { Tabs, Tab } from './Tabs';
-import { TaskList } from './TaskList';
 
+export class App extends Component {
+  state = {
+    login: false
+  };
 
-import { UserList } from './UserList';
-import { Gallery } from './Gallery';
+  setLoginState = (login) => {
+    this.setState({ login });
+  };
 
+  render() {
+    const { login } = this.state;
 
-export const App = () => (
-  <React.Fragment>
-    <Header />
-    <TaskList />
+    return (
+      <React.Fragment>
+        <Header
+          login={login}
+          setLoginState={this.setLoginState}
+        />
+        <Routing
+          login={login}
+          setLoginState={this.setLoginState}
+        />
+        <Footer/>
+      </React.Fragment>
+    );
+  }
+}
 
-    <Tabs selectedIndex={1}>
-      <Tab title="tab 1">
-        <UserList />
-      </Tab>
-
-      <Tab title="tab 2">
-        <Gallery />
-      </Tab>
-    </Tabs>
-
-    <Form excluded={['email']} disabled={['first name']} />
-    {/* <Form /> */}
-    <Main />
-    <Footer />
-  </React.Fragment>
-);
 

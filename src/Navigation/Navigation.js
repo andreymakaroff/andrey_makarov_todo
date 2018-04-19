@@ -1,26 +1,49 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import './navigation.scss';
-import { Form } from '../Form/Form';
+// import { Form } from '../Form/Form';
 
-export const Navigation = (props) => (
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Product</a></li>
-      {
-        props.isLogin &&
-        <li><a href="#">My Account</a></li>
-      }
-    </ul>
-  </nav>
-);
+export const Navigation = ({ user, login, logout }) => {
+  const isLogin = location.pathname !== '/login';
+  return (
+    <nav>
+      <ul>
+        <li>
+          <NavLink
+            to="/"
+            activeClassName="active"
+            exact
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/tasks"
+            activeClassName="active"
+          >
+            tasks
+          </NavLink>
+        </li>
 
-
-Form.propTypes = {
-  isLogin: PropTypes.array
+        {isLogin &&
+        <li>
+          <NavLink to="/login">
+            Login
+          </NavLink>
+        </li>
+        }
+      </ul>
+    </nav>
+  )
 };
 
-Form.defaultProps = {
-  isLogin: []
-};
+
+// Form.propTypes = {
+//   isLogin: PropTypes.array
+// };
+//
+// Form.defaultProps = {
+//   isLogin: []
+// };

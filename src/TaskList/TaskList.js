@@ -1,3 +1,4 @@
+import { Redirect } from 'react-router-dom';
 import './taskList.scss';
 
 import { Tabs, Tab } from '../Tabs';
@@ -5,6 +6,10 @@ import { Tabs, Tab } from '../Tabs';
 export class TaskList extends Component {
   constructor(props) {
     super(props);
+  }
+
+  state={
+    tasks: false
   }
 
   handleAddNew = ( index ) => {
@@ -112,6 +117,8 @@ export class TaskList extends Component {
             <button onClick={() => this.handleAddNew(index)}>Add new</button>
           </Tab>)
         )}
+
+        <button>go to </button>
       </Tabs>
     );
   }
