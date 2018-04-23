@@ -1,4 +1,4 @@
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './taskList.scss';
 
 import { Tabs, Tab } from '../Tabs';
@@ -8,9 +8,9 @@ export class TaskList extends Component {
     super(props);
   }
 
-  state={
-    tasks: false
-  }
+  // state={
+  //   tasks: false
+  // }
 
   handleAddNew = ( index ) => {
     console.log(index);
@@ -108,17 +108,26 @@ export class TaskList extends Component {
       <Tabs selectedIndex={new Date().getDay()}>
         {tasksPerWeek.map((tasks, index) => (
           <Tab
-            title={days[index]}
             key={index}
+            title={days[index]}
           >
             <ol>
-              {tasks.map(task => <li key={tasks.id}>{task.title}</li>)}
+              {tasks.map(task =>
+                <li key={task.id}>
+                  <Link to={{
+                    pathname: `/tasks/${task.id}`,
+                    state: {
+                      task
+                    }
+                  }}>
+                    {task.title}
+                  </Link>
+                </li>
+              )}
             </ol>
             <button onClick={() => this.handleAddNew(index)}>Add new</button>
           </Tab>)
         )}
-
-        <button>go to </button>
       </Tabs>
     );
   }

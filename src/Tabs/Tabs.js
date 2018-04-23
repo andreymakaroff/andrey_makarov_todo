@@ -8,6 +8,7 @@ export class Tabs extends Component {
     if (next.selectedIndex !== prev.selectedIndex){
       return { selectedIndex: next.selectedIndex };
     }
+    return null;
   }
 
   constructor(props) {
@@ -30,6 +31,7 @@ export class Tabs extends Component {
     const links = tabs.map(tab => tab.props.title || 'No name tab');
     const contents = tabs.map(tab => tab.props.children);
 
+    // console.log(this);
     return (
       <section className="tab">
         <TabNav
@@ -40,7 +42,6 @@ export class Tabs extends Component {
         <div className="tab-content">
           {contents[this.state.selectedIndex] }
         </div>
-
       </section>
     );
   }

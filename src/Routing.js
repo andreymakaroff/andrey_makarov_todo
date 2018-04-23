@@ -2,21 +2,23 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Login } from './Login';
 import { TaskList } from './TaskList';
+import { Task } from './Task';
 import { Main } from './Main';
 
 export class Routing extends Component {
-  // state = {
-  //   name: false
-  // };
-  //
+  state = {
+    name: false,
+    // login: props.login
+  };
+
   // onLogin = (login) => {
   //   this.setState({ login });
   // };
   // componentDidMount(){
-  //   setTimeout(() => this.setState({login:true}), 2000)
+  //   setTimeout(() => this.setState({login: true}), 200);
   // }
 
-  render(){
+  render() {
     return(
       <React.Fragment>
         {this.props.login ?
@@ -27,8 +29,13 @@ export class Routing extends Component {
               component={Main}
             />
             <Route
+              exact
               path="/tasks"
               component={TaskList}
+            />
+            <Route
+              path="/tasks/:task"
+              component={Task}
             />
             <Route
               path="/home"

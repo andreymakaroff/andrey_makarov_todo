@@ -8,7 +8,7 @@ import { Footer } from './Footer';
 
 export class App extends Component {
   state = {
-    login: false
+    login: true
   };
 
   setLoginState = (login) => {
