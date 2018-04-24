@@ -23,7 +23,7 @@ export const Navigation = ({ user, login, logout }) => {
             to="/tasks"
             activeClassName="active"
           >
-            tasks
+            {user} tasks
           </NavLink>
         </li>
 
