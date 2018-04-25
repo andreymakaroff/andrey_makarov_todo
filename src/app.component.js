@@ -1,36 +1,57 @@
 import './styles.scss';
 import { Routing } from './Routing/';
-
-import { Header } from './Header';
-import { Main } from './Main';
-import { Footer } from './Footer';
+import { Header, Footer } from './parts/';
+import { Loader } from './pages/';
+import {checkUser, logout} from './services';
 
 export class App extends Component {
   state = {
-    login: false,
-    // login: true,
-    user: '',
+    user: undefined,
   };
 
-  setLoginState = (login, user) => {
-    this.setState({ login, user });
+  makeLogout = () => {
+    logout()
+      .then(() => {
+        this.setState({ user: null });
+      });
   };
+
+  //     .then(() => {
+  //       this.setState({ user: null });
+  //     });
+  //
+  // }
+
+  setLoginState = (user) => {
+    this.setState({ user });
+  };
+
+  componentDidMount() {
+    checkUser()
+      .then((data) => {
+        this.setLoginState(data);
+      });
+  }
+
 
   render() {
-    const { login, user } = this.state;
+    const { user } = this.state;
 
     return (
       <React.Fragment>
         <Header
-          login={login}
           user={user}
-          logout={this.setLoginState}
+          logout={this.makeLogout}
         />
         <main className="main">
-          <Routing
-            login={login}
-            setLoginState={this.setLoginState}
-          />
+          {
+            user !== undefined ?
+              <Routing
+                user={user}
+                setLoginState={this.setLoginState}
+              /> :
+              <Loader/>
+          }
         </main>
         <Footer />
       </React.Fragment>

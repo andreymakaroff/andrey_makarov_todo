@@ -1,6 +1,6 @@
 import './main.scss';
 
-import { UserInfo } from '../UserInfo';
+import { UserInfo } from '../../UserInfo';
 
 export class Main extends React.Component {
   render() {

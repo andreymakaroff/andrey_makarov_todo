@@ -1,6 +1,7 @@
 import './login.scss';
 
 import { Loader } from '../Loader';
+import { login } from '../../services';
 
 export class Login extends Component   {
 
@@ -13,15 +14,16 @@ export class Login extends Component   {
   }
 
   submit = (e) => {
+    const { email, password } = e.target;
     e.preventDefault();
-    const value = e.target.name.value;
-    this.setState({
-      loading: true
-    });
 
-    setTimeout(() => {
-      this.onLogin(true, value);
-    }, 500);
+    login({
+      email: email.value,
+      password: password.value
+    })
+      .then((data) => {
+        this.onLogin(data);
+      });
   };
 
   render() {
@@ -36,12 +38,15 @@ export class Login extends Component   {
         <input
           type="text"
           placeholder="Name"
-          name="name"
+          name="email"
+          defaultValue="admin@a.com"
           required
         />
         <input
           type="password"
+          name="password"
           placeholder="Password"
+          defaultValue="admin"
           required
         />
         <input

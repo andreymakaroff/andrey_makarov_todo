@@ -1,9 +1,9 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { TaskList } from '../TaskList';
-import { Task } from '../Task';
-import { Main } from '../Main';
-import { NotFound } from '../NotFound';
+import { TaskList } from '../pages/TaskList';
+import { Task } from '../pages/Task';
+import { Main } from '../parts/Main';
+import { NotFound } from '../pages/NotFound';
 
 export class Loginned extends Component {
 

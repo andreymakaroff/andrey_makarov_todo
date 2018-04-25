@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './navigation.scss';
 // import { Form } from '../Form/Form';
 
-export const Navigation = ({ user, login, logout }) => {
+export const Navigation = ({ user, logout }) => {
   const isLogin = location.pathname !== '/login';
   return (
     <nav>
@@ -23,7 +23,7 @@ export const Navigation = ({ user, login, logout }) => {
             to="/tasks"
             activeClassName="active"
           >
-            {user} tasks
+            {user && <strong>{user.firstName}</strong>} tasks
           </NavLink>
         </li>
 
@@ -39,11 +39,3 @@ export const Navigation = ({ user, login, logout }) => {
   )
 };
 
-
-// Form.propTypes = {
-//   isLogin: PropTypes.array
-// };
-//
-// Form.defaultProps = {
-//   isLogin: []
-// };

@@ -1,9 +1,9 @@
 import './header.scss';
 
 import { Navigation } from '../Navigation';
-import { ButtonSwitcher } from '../ButtonSwitcher';
+import { ButtonSwitcher } from '../../components/ButtonSwitcher';
 
-export const Header = ({user, login, logout}) => (
+export const Header = ({user, logout}) => (
   <header className="header">
     <a href="/" className="logo">
       <img
@@ -13,6 +13,6 @@ export const Header = ({user, login, logout}) => (
     </a>
     <ButtonSwitcher />
     <Navigation user={user} />
-    {login && <button onClick={() => logout()}>Logout</button>}
+    {user && <button onClick={() => logout()}>Logout</button>}
   </header>
 );

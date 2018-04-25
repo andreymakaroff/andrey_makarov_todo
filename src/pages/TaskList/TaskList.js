@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './taskList.scss';
 
-import { Tabs, Tab } from '../Tabs';
+import { Tabs, Tab } from '../../components/Tabs';
 
 export class TaskList extends Component {
   constructor(props) {
