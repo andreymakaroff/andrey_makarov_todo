@@ -5,6 +5,11 @@ export const login = (data = {}) => rest.post(
   data,
 );
 
+export const registrationUser = (data = {}) => rest.post(
+  'public/user',
+  data,
+);
+
 export const checkUser = () => rest.get('public/checkUser');
 
 export const logout = () => rest.get('logout');

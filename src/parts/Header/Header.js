@@ -3,7 +3,7 @@ import './header.scss';
 import { Navigation } from '../Navigation';
 import { ButtonSwitcher } from '../../components/ButtonSwitcher';
 
-export const Header = ({user, logout}) => (
+export const Header = ({ user, logout }) => (
   <header className="header">
     <a href="/" className="logo">
       <img

@@ -1,128 +1,57 @@
 import { Link } from 'react-router-dom';
+
+import { getTasks, deleteTask } from '../../services';
 import './taskList.scss';
 
+import { shortDaysWeek } from '../../constants';
 import { Tabs, Tab } from '../../components/Tabs';
 
 export class TaskList extends Component {
-  constructor(props) {
-    super(props);
+  date = new Date().getDay();
+
+  state = {
+    taskInWeek: [],
+    selectedIndex: this.date,
+  };
+
+  componentDidMount() {
+    this.updateTaskList();
   }
 
-  // state={
-  //   tasks: false
-  // }
+  handleAddNew = (day) => {
+    this.props.history.push(`tasks/newTask/?day=${day}`);
+  };
 
-  handleAddNew = ( index ) => {
-    console.log(index);
+  updateTaskList = () => {
+    getTasks()
+      .then(taskInWeek => this.setState({ taskInWeek })); // загружаем taskInWeek
+  };
+
+  handleDeleteTask = (id) => {
+    deleteTask(id)
+      .then(() => this.updateTaskList());
   };
 
   render() {
-    const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-    const tasksPerWeek = [
-      [
-        {
-          "description": "Some description is here",
-          "title": "Read book",
-          "day": 0,
-          "id": "00",
-          "done": true
-        },
-        {
-          "description": "",
-          "title": "Write new article",
-          "day": 0,
-          "id": "01",
-          "done": false
-        },
-        {
-          "title": "Do exercises",
-          "day": 0,
-          "id": "02"
-        },
-        {
-          "title": "Cleaning Room",
-          "day": 0,
-          "id": "03"
-        },
-        {
-          "title": "Change oil",
-          "day": 0,
-          "id": "04"
-        },
-        {
-          "title": "New 10",
-          "description": "",
-          "day": "0",
-          "id": "05"
-        },
-        {
-          "title": "New 02",
-          "description": "",
-          "day": "0",
-          "id": "06"
-        }
-      ],
-      [
-        {
-          "description": "Make home tasks (math, geo)",
-          "title": "Make homework",
-          "day": 1,
-          "id": "10"
-        }
-      ],
-      [
-        {
-          "description": "",
-          "title": "Go to gym",
-          "day": "2",
-          "id": "20"
-        },
-        {
-          "description": "OKEY",
-          "title": "Play PC",
-          "day": "2",
-          "id": "21"
-        }
-      ],
-      [],
-      [],
-      [
-        {
-          "title": "Visit grandma",
-          "day": 5,
-          "id": "50",
-          "done": true
-        }
-      ],
-      [
-        {
-          "description": "watch King Lion, How to Train Your Dragon",
-          "title": "Watch cartoons",
-          "day": 6,
-          "id": "60"
-        }
-      ]
-    ];
-
+    const { taskInWeek, selectedIndex } = this.state;
     return (
-      <Tabs selectedIndex={new Date().getDay()}>
-        {tasksPerWeek.map((tasks, index) => (
+
+      <Tabs selectedIndex={selectedIndex}>
+        {taskInWeek.map((tasks, index) => (
           <Tab
             key={index}
-            title={days[index]}
+            title={shortDaysWeek[index]}
           >
             <ol>
               {tasks.map(task =>
-                <li key={task.id}>
+                (<li key={task.id}>
                   <Link to={{
-                    pathname: `/tasks/${task.id}`,
-                    state: {
-                      task
-                    }
+                    pathname: `tasks/${task.id}`,
                   }}>
                     {task.title}
                   </Link>
-                </li>
+                  <button onClick={() => this.handleDeleteTask(task.id)}>del</button>
+                </li>)
               )}
             </ol>
             <button onClick={() => this.handleAddNew(index)}>Add new</button>

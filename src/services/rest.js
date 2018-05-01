@@ -1,12 +1,24 @@
 const BASE_URL = 'http://localhost:8081/';
 
-export const request = (url, method = 'GET', body, options) => fetch(`${BASE_URL}${url}`, {
-  method,
-  credentials: 'include',
-  body: JSON.stringify(body),
-  ...options
-})
-  .then(data => data.json());
+export const request = (url, method = 'GET', body, options) => {
+  const fetchOpts = {
+    method,
+    credentials: 'include',
+    body: JSON.stringify(body)
+  };
+
+  Object.assign(fetchOpts, options);
+
+  return fetch(`${BASE_URL}${url}`, fetchOpts)
+    .then(response => response.json())
+    .then((data) => {
+      if (data.error) {
+        return Promise.reject(data.error);
+      }
+
+      return Promise.resolve(data);
+    });
+};
 
 export const rest = {
   get(url) {

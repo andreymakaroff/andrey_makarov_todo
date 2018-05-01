@@ -16,12 +16,6 @@ export class App extends Component {
       });
   };
 
-  //     .then(() => {
-  //       this.setState({ user: null });
-  //     });
-  //
-  // }
-
   setLoginState = (user) => {
     this.setState({ user });
   };
@@ -30,7 +24,12 @@ export class App extends Component {
     checkUser()
       .then((data) => {
         this.setLoginState(data);
+      })
+      .catch((err) => {
+        this.setLoginState(null);
+        console.log('cant login', err);
       });
+    ;
   }
 
 
@@ -50,7 +49,7 @@ export class App extends Component {
                 user={user}
                 setLoginState={this.setLoginState}
               /> :
-              <Loader/>
+              <Loader />
           }
         </main>
         <Footer />

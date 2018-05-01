@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import './login.scss';
 
 import { Loader } from '../Loader';
@@ -23,7 +25,8 @@ export class Login extends Component   {
     })
       .then((data) => {
         this.onLogin(data);
-      });
+      })
+      .catch(err => console.log('Can\'t login:', err));
   };
 
   render() {
@@ -31,29 +34,40 @@ export class Login extends Component   {
     return (
 
       loading ? <Loader /> :
-      <form
-        className="loginForm"
-        onSubmit={e => this.submit(e)}
-      >
-        <input
-          type="text"
-          placeholder="Name"
-          name="email"
-          defaultValue="admin@a.com"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          defaultValue="admin"
-          required
-        />
-        <input
-          type="submit"
-          value="Логин"
-        />
-      </form>
+        <div className="loginForm__wrapper">
+          <form
+            className="loginForm"
+            onSubmit={e => this.submit(e)}
+          >
+            <input
+              type="text"
+              placeholder="Name"
+              name="email"
+              defaultValue="admin@a.com"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              defaultValue="admin"
+              required
+            />
+            <input
+              type="submit"
+              value="Логин"
+            />
+          </form>
+          <br/>
+          <Link
+            className="loginForm__link"
+            to="/registration"
+          >
+            I am new user (registration)
+          </Link>
+        </div>
+
+
     );
   }
 }

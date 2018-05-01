@@ -1,0 +1,1 @@
+export const shortDaysWeek = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
