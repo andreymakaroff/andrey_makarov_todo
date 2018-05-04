@@ -1,3 +1,5 @@
+import {errObserver} from "./observer";
+
 const BASE_URL = 'http://localhost:8081/';
 
 export const request = (url, method = 'GET', body, options) => {
@@ -9,7 +11,7 @@ export const request = (url, method = 'GET', body, options) => {
 
   Object.assign(fetchOpts, options);
 
-  return fetch(`${BASE_URL}${url}`, fetchOpts)
+  const promise = fetch(`${BASE_URL}${url}`, fetchOpts)
     .then(response => response.json())
     .then((data) => {
       if (data.error) {
@@ -18,6 +20,10 @@ export const request = (url, method = 'GET', body, options) => {
 
       return Promise.resolve(data);
     });
+
+  promise.catch(error => errObserver.trigger(String(error)));
+
+  return promise;
 };
 
 export const rest = {

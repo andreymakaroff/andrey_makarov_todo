@@ -23,6 +23,7 @@ export class TaskList extends Component {
   };
 
   updateTaskList = () => {
+    console.log('sss');
     getTasks()
       .then(taskInWeek => this.setState({ taskInWeek })); // загружаем taskInWeek
   };
