@@ -1,8 +1,12 @@
-export * from './Loader';
-export * from './Login';
-export * from './Main';
-export * from './Registration';
-export * from './ThankYouPage';
-export * from './NotFound';
-export * from './TaskList';
-export * from './Task';
+export * from './common/Loader';
+export * from './common/NotFound';
+
+export * from './unloginned/Login';
+export * from './unloginned/Registration';
+export * from './unloginned/ThankYouPage';
+export * from './unloginned/Contacts';
+
+export * from './loginned/Main';
+export * from './loginned/Profile';
+export * from './loginned/TaskList';
+export * from './loginned/Task';

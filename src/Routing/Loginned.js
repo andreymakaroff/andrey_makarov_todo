@@ -1,6 +1,6 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { TaskList, Task, Main, NotFound } from '../pages';
+import { TaskList, Task, Main, NotFound, Contacts,Profile } from '../pages';
 
 export class Loginned extends Component {
 
@@ -20,6 +20,15 @@ export class Loginned extends Component {
             <Route
               path="/tasks/:task"  // dinamic routing
               component={Task}
+            />
+            <Route
+              path="/contacts"
+              render={() => <Contacts />}
+              component={Contacts}
+            />
+            <Route
+              path="/profile"
+              component={Profile}
             />
             <Route
               path="/home"

@@ -10,6 +10,11 @@ export const registrationUser = (data = {}) => rest.post(
   data,
 );
 
+export const updateUser = (data = {}) => rest.put(
+  'user',
+  data,
+);
+
 export const checkUser = () => rest.get('public/checkUser');
 
 export const logout = () => rest.get('logout');

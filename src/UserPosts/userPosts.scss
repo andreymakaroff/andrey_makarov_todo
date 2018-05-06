@@ -1,7 +1,0 @@
-@import "../variables";
-
-.userPosts{
-  @include padding(10px);
-  flex-grow: 0.6;
-  background: $contentBg;
-}

@@ -56,7 +56,7 @@ export class AppComponent extends Component {
           user={user}
           logout={this.makeLogout}
         />
-        <main className="main">
+        <main className="container main">
           {
             user !== undefined ?
               <Routing

@@ -18,22 +18,53 @@ export const Navigation = ({ user, logout }) => {
             Home
           </NavLink>
         </li>
+
         <li>
           <NavLink
-            to="/tasks"
+            to="/contacts"
             activeClassName="active"
           >
-            {user && <strong>{user.firstName}</strong>} tasks
+            Contacts
           </NavLink>
         </li>
 
-        {isLogin &&
-        <li>
-          <NavLink to="/login">
-            Login
-          </NavLink>
-        </li>
+        {user ?
+          <React.Fragment>
+            <li>
+              <NavLink
+                to="/tasks"
+                activeClassName="active"
+              >
+                {user && <strong>{user.firstName}</strong>} Tasks
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/profile"
+                activeClassName="active"
+              >
+                {user.firstName}
+              </NavLink>
+            </li>
+          </React.Fragment>
+          :
+          <li>
+            <NavLink
+              to="/registration"
+              activeClassName="active"
+            >
+              Create user
+            </NavLink>
+          </li>
         }
+
+        {/*{!isLogin &&*/}
+        {/*<li>*/}
+          {/*<NavLink to="/login">*/}
+            {/*Login*/}
+          {/*</NavLink>*/}
+        {/*</li>*/}
+        {/*}*/}
       </ul>
     </nav>
   )

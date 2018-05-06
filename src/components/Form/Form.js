@@ -1,46 +1,48 @@
 import './form.scss';
-import PropTypes from 'prop-types';
 
 export class Form extends Component {
+  static get fields() {
+    return [
+      { id: 'email', label: 'email', reg: /^\w+@\w+\.[a-z]{2,}$/ },
+      { id: 'firstName', label: 'first name', reg: /^[^ ]{3,20}$/ },
+      { id: 'lastName', label: 'last name', reg: /^[^ ]{3,20}$/ },
+      { id: 'password', label: 'password', reg: /^[^ ]{6,20}$/, secure: true },
+      { id: 'repeatPassword', label: 'repeat password', reg: /^[^ ]{6,20}$/, secure: true }
+    ];
+  }
+
   constructor(props) {
     super(props);
 
-    this.fields = [
-      { label: 'email', reg: /^\w+@\w+\.[a-z]{2,}$/ },
-      { label: 'first name', reg: /^[^ ]{3,20}$/ },
-      { label: 'last name', reg: /^[^ ]{3,20}$/ },
-      { label: 'password', reg: /^[^ ]{6,20}$/, secure: true },
-      { label: 'repeat password', reg: /^[^ ]{6,20}$/, secure: true },
-    ];
+    this.fields = Form.fields;
 
-    this.state = {error: ''};
-    this.fields.forEach(field => (this.state[field.label] = { value: '' }));
+    this.state = {
+      error: ''
+    };
+    this.fields.forEach(field => (this.state[field.id] = { value: '' }));
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    if (!nextProps.data) {
+      return null;
+    }
+
+    const state = {};
+
+    Form.fields.forEach(({ id }) => (state[id] = { value: nextProps.data[id] }));
+
+    return state;
   }
 
   setValue = ({ target }) => {
     this.setState({
       [target.name]: { value: target.value }
     });
-  }
-
-  save = (event) => {
-    const { state } = this;
-    let error = '';
-
-    event.preventDefault();
-    if (state['password'].value !== state['repeat password'].value){
-      error = 'Password should be same';
-    }
-
-    this.setState({ error });
-    if (error) return;
-
-    console.log(this.getFormValues());
-  }
+  };
 
   validate = (index) => {
     const field = this.fields[index];
-    const stateField = this.state[field.label];
+    const stateField = this.state[field.id];
 
     if (field.reg.test(stateField.value)) {
       stateField.error = '';
@@ -49,29 +51,54 @@ export class Form extends Component {
     }
 
     this.setState({
-      [field.label]: stateField
+      [field.id]: stateField
     });
-  }
+  };
 
-  getDisabledState()  {
-    const { excluded = [], disabled = [] } = this.props;
-
-    return this.fields
-      .filter(({label}) => !excluded.includes(label) && !disabled.includes(label))
-      .some(({ label }) => {
-        const { value, error } = this.state[label];
+  getDisabledState() {
+    return this.getActualFields()
+      .some(({ id }) => {
+        const { value, error } = this.state[id];
         return !value || error;
       });
   }
 
-  getFormValues() {
+  save = (event) => {
+    const { state } = this;
+    let error = '';
+
+    event.preventDefault();
+
+
+    // console.log(this.props.excluded.indexOf('repeatPassword')
+
+    if ((this.props.excluded.indexOf('repeatPassword') === -1)&&(state.password.value !== state.repeatPassword.value)) {
+      error = 'Passwords should be the same';
+    }
+
+    this.setState({ error });
+
+    if (error) return;
+
+    this.props.onSubmit(this.getFormValue());
+  };
+
+  getFormValue() {
     const form = {};
 
-    this.fields.forEach((field) => {
-      form[field.label] = this.state[field.label].value;
-    });
+    this.fields
+      .filter(field => !this.props.excluded.includes(field.id))
+      .filter(field => !this.props.skipped.includes(field.id))
+      .forEach(field => form[field.id] = this.state[field.id].value);
 
     return form;
+  }
+
+  getActualFields() {
+    return this.fields
+      .filter(field => !this.props.excluded.includes(field.id))
+      .filter(field => !this.props.skipped.includes(field.id))
+      .filter(field => !this.props.disabled.includes(field.id));
   }
 
   render() {
@@ -83,32 +110,40 @@ export class Form extends Component {
         className="form"
         onSubmit={this.save}
       >
-        <ul>{fields
-          .filter(({ label }) => !excluded.includes(label))
-          .map(({ label, secure }, index) => {
-          const stateField = state[label]; // this.state['email'] = { value: '' }
+        <div>{fields
+          .filter(({ id }) => !excluded.includes(id))
+          .map(({ label, secure, id }, index) => {
+            const stateField = state[id];
 
-          return (
-            <li key={label}>
-              <input
-                type={secure ? 'password' : 'text'}
-                name={label}
-                disabled={disabled.includes(label)}
-                className={stateField.error === '' ? 'correct' : 'error'}
-                placeholder={label.toUpperCase()}
-                value={stateField.value}
-                onChange={this.setValue}
-                onBlur={() => this.validate(index)}
-              />
-              {stateField.error && <span>{stateField.error}</span>}
-            </li>
-          );
-        })}
-        </ul>
-        {state.error && <span>{state.error}</span>}
+            return (
+              <div
+                className="form-group"
+                key={label}
+              >
+                <label htmlFor={label}>{label}</label>
+                <input
+                  type={secure ? 'password' : 'text'}
+                  name={id}
+                  id={id}
+                  className={stateField.error ? 'error form-control' : 'correct form-control'}
+                  placeholder={label.toUpperCase()}
+                  value={stateField.value}
+                  onChange={this.setValue}
+                  onBlur={() => this.validate(index)}
+                  disabled={disabled.includes(id)}
+                />
+                {stateField.error && <span className="form-text text-muted">{stateField.error}</span>}
+              </div>
+            );
+          })}
+        </div>
+
+        {state.error && <div className="alert alert-danger">{state.error}</div>}
+
         <input
           type="submit"
           value="Save"
+          className="btn btn-primary"
           disabled={this.getDisabledState()}
         />
       </form>
@@ -116,12 +151,9 @@ export class Form extends Component {
   }
 }
 
-Form.propTypes = {
-  excluded: PropTypes.arrayOf(PropTypes.string),
-  disabled: PropTypes.arrayOf(PropTypes.string)
-};
-
 Form.defaultProps = {
   excluded: [],
-  disabled: []
+  disabled: [],
+  skipped: [],
+  onSubmit: _=>_
 };
