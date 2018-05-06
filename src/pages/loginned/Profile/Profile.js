@@ -1,9 +1,12 @@
-import './profile.scss';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import './profile.scss';
 import { Form } from '../../../components/Form';
 import { updateUser } from '../../../services';
+import { updateUserStore } from '../../../store';
 
-export class Profile extends React.Component {
+export class ProfileContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,24 +18,38 @@ export class Profile extends React.Component {
 
   submit = (fields) => {
     updateUser(fields)
-      .then((data) => {
-        this.onLogin(data);
+      .then(() => {
+        this.props.dispatch(updateUserStore(fields));
       })
-      .catch(err => console.log('Can\'t login:', err));
+      .then(this.props.history.push('/'))
+      .catch(err => console.log('Can\'t change profile:', err));
   };
 
   render() {
     const { loading } = this.state;
+    const { email, firstName, lastName } = this.props.user;
     return (
 
       loading ? <Loader /> :
         <main className="main pt-4">
           <Form
+            data={{
+              email,
+              firstName,
+              lastName
+            }}
             onSubmit={(fields) => this.submit(fields)}
             disabled={['email']}
-            skipped={['firstName']}
+            skipped={['password', 'repeatPassword']}
           />
         </main>
     );
   }
 }
+
+
+const mapStoreToProps = ({ user }) => ({
+  user
+});
+
+export const Profile =  withRouter(connect(mapStoreToProps)(ProfileContainer));

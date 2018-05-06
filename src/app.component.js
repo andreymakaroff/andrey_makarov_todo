@@ -1,13 +1,13 @@
 import { ToastContainer } from 'react-toastr';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import './styles.scss';
 import { Routing } from './Routing/';
 import { Header, Footer } from './parts/';
 import { Loader } from './pages/';
 import { checkUser, logout, errObserver } from './services';
-import { removeUser, setUser } from './store';
-import { withRouter } from 'react-router-dom';
+import { removeUserStore, setUserStore } from './store';
 
 export class AppComponent extends Component {
   state = {
@@ -17,12 +17,12 @@ export class AppComponent extends Component {
   makeLogout = () => {
     logout()
       .then(() => {
-        this.props.dispatch(removeUser());
+        this.props.dispatch(removeUserStore());
       });
   };
 
   setLoginState = (user) => {
-    this.props.dispatch(setUser(user));
+    this.props.dispatch(setUserStore(user));
   };
 
   componentDidMount() {

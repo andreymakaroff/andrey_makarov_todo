@@ -2,10 +2,8 @@
 import { NavLink } from 'react-router-dom';
 
 import './navigation.scss';
-// import { Form } from '../Form/Form';
 
 export const Navigation = ({ user, logout }) => {
-  const isLogin = location.pathname !== '/login';
   return (
     <nav>
       <ul>
@@ -35,7 +33,7 @@ export const Navigation = ({ user, logout }) => {
                 to="/tasks"
                 activeClassName="active"
               >
-                {user && <strong>{user.firstName}</strong>} Tasks
+                Task List
               </NavLink>
             </li>
             <li>
@@ -43,7 +41,7 @@ export const Navigation = ({ user, logout }) => {
                 to="/profile"
                 activeClassName="active"
               >
-                {user.firstName}
+                {user.firstName}`s profile
               </NavLink>
             </li>
           </React.Fragment>
@@ -57,14 +55,6 @@ export const Navigation = ({ user, logout }) => {
             </NavLink>
           </li>
         }
-
-        {/*{!isLogin &&*/}
-        {/*<li>*/}
-          {/*<NavLink to="/login">*/}
-            {/*Login*/}
-          {/*</NavLink>*/}
-        {/*</li>*/}
-        {/*}*/}
       </ul>
     </nav>
   )
