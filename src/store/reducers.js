@@ -3,7 +3,8 @@ import {
   UPDATE_USER,
   REMOVE_USER,
   SET_TASK_LIST,
-  UPDATE_TASK_LIST
+  UPDATE_TASK_LIST,
+  SET_INFO,
 } from './actions';
 
 // ячейка юзер в сторе
@@ -25,6 +26,16 @@ export const taskList = (state = [], { type, data }) => {
   switch (type) {
     case SET_TASK_LIST:
     case UPDATE_TASK_LIST: {
+      return data;
+    }
+  }
+
+  return state;
+};
+
+export const info = (state = {}, { type, data }) => {
+  switch (type) {
+    case SET_INFO: {
       return data;
     }
   }

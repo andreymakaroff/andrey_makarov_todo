@@ -3,38 +3,26 @@ import { connect } from 'react-redux';
 
 import './main.scss';
 import { getInfo } from '../../../services';
+import { setInfo } from '../../../store';
 
 export class MainContainer extends React.Component {
-  state = {
-    total: '',
-    done: '',
-    inProgress: '',
-    waiting: '',
-  };
-
   componentDidMount() {
     getInfo()
-      .then(task => this.setState({ ...task }));
+      .then(info => this.props.dispatch(setInfo(info)));
   }
 
   render() {
-    const {
-      total,
-      done,
-      inProgress,
-      waiting
-    } = this.state;
-    const { firstName } = this.props.user;
+    const { user, info } = this.props;
 
     return (
       <main className="main pt-4">
         <div className="card userInfo">
           <div className="card-body">
-            <h5 className="card-title">Hello, {firstName}!</h5>
-            <div>You have {total} tasks</div>
-            <div>Done: {done}</div>
-            <div>In progress: {inProgress}</div>
-            <div>Waiting: {waiting}</div>
+            <h5 className="card-title">Hello, {user.firstName}!</h5>
+            <div>You have {info.total} tasks</div>
+            <div>Done: {info.done}</div>
+            <div>In progress: {info.inProgress}</div>
+            <div>Waiting: {info.waiting}</div>
             <br />
             <Link
               className="btn btn-primary"
@@ -49,8 +37,9 @@ export class MainContainer extends React.Component {
   }
 }
 
-const mapStoreToProps = ({ user }) => ({
-  user
+const mapStoreToProps = ({ user, info }) => ({
+  user,
+  info
 });
 
 export const Main = connect(mapStoreToProps)(MainContainer);

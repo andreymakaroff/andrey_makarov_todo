@@ -15,12 +15,14 @@ export class Registration extends Component {
   }
 
   submit = (fields) => {
+    this.setState({loading: true});
     registrationUser(fields)
       .then(() => {
+        this.setState({ loading: false });
         this.props.history.push('/thank_you_page');
       })
       .catch((error) => {
-        // this.setState({error});
+        this.setState({ loading: false });
         console.log('Can\'t register:', error);
       });
   };
