@@ -23,7 +23,6 @@ export class Loginned extends Component {
             />
             <Route
               path="/contacts"
-              render={() => <Contacts />}
               component={Contacts}
             />
             <Route

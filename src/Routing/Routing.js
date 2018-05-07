@@ -2,12 +2,12 @@ import { Loginned } from './Loginned';
 import { UnLoginned } from './UnLoginned';
 
 
-export const Routing = ({ user, setLoginState }) => (
+export const Routing = ({ user }) => (
   <React.Fragment>
     {user ?
       <Loginned />
       :
-      <UnLoginned onLogin={setLoginState} />
+      <UnLoginned />
     }
   </React.Fragment>
 );

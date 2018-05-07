@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import './profile.scss';
 import { Form } from '../../../components/Form';
 import { updateUser } from '../../../services';
-import { updateUserStore } from '../../../store';
+import { updateUser as updateUserStore } from '../../../store';
+
+// import { updateUserStore } from '../../../store';
 
 export class ProfileContainer extends React.Component {
 
@@ -38,9 +40,9 @@ export class ProfileContainer extends React.Component {
               firstName,
               lastName
             }}
-            onSubmit={(fields) => this.submit(fields)}
+            onSubmit={fields => this.submit(fields)}
             disabled={['email']}
-            skipped={['password', 'repeatPassword']}
+            // skipped={['password', 'repeatPassword']}
           />
         </main>
     );

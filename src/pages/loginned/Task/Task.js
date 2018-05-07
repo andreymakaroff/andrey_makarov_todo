@@ -40,6 +40,7 @@ export class Task extends Component {
     if (task === 'newTask') {
       const { day, title, description } = this.state;
       createTask({ day, title, description })
+        // .then(console.log('task update'))
         .then(this.props.history.push('/tasks'));
       return;
     }

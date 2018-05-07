@@ -6,27 +6,15 @@ import './styles.scss';
 import { Routing } from './Routing/';
 import { Header, Footer } from './parts/';
 import { Loader } from './pages/';
-import { checkUser, logout, errObserver } from './services';
-import { removeUserStore, setUserStore } from './store';
+import { checkUser, errObserver } from './services';
+import { setUser } from './store';
 
 export class AppComponent extends Component {
-  state = {
-    user: undefined,
-  };
-
-  makeLogout = () => {
-    logout()
-      .then(() => {
-        this.props.dispatch(removeUserStore());
-      });
-  };
-
   setLoginState = (user) => {
-    this.props.dispatch(setUserStore(user));
+    this.props.dispatch(setUser(user));
   };
 
   componentDidMount() {
-
     checkUser()
       .then((data) => {
         this.setLoginState(data);
@@ -36,7 +24,7 @@ export class AppComponent extends Component {
         console.log('cant login', err);
       });
 
-    errObserver.addObserver((err = 'Something wrong') => this.state.user !== false && this.container.error(
+    errObserver.addObserver((err = 'Something wrong') => this.props.user !== false && this.container.error(
       <strong>{err}</strong>,
       <em>Error</em>
     ));
@@ -52,16 +40,12 @@ export class AppComponent extends Component {
           ref={ref => this.container = ref}
           className="toast-top-right"
         />
-        <Header
-          user={user}
-          logout={this.makeLogout}
-        />
+        <Header />
         <main className="container main">
           {
             user !== undefined ?
               <Routing
                 user={user}
-                setLoginState={this.setLoginState}
               /> :
               <Loader />
           }
@@ -72,13 +56,8 @@ export class AppComponent extends Component {
   }
 }
 
-
-// const mapStoreToProps = state => ({
-//   user: state.user
-// });
 const mapStoreToProps = ({ user }) => ({
   user
 });
 
-
-export const App =  withRouter(connect(mapStoreToProps)(AppComponent));
+export const App = withRouter(connect(mapStoreToProps)(AppComponent));
