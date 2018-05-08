@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import './navigation.scss';
 
-export const Navigation = ({ user, logout }) => {
+export const Navigation = ({ user }) => {
   return (
     <nav>
       <ul>

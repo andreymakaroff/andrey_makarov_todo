@@ -9,10 +9,8 @@ import {deleteTask, getTasks, updateTask} from '../../../services';
 import {updateTaskList as updateTaskListStore} from '../../../store';
 
 export class TaskListContainer extends Component {
-  date = new Date().getDay();
-
   state = {
-    selectedIndex: this.date,
+    selectedIndex: new Date().getDay()
   };
 
   componentDidMount() {
@@ -35,14 +33,8 @@ export class TaskListContainer extends Component {
       .then(() => this.updateTaskList());
   };
 
-  handleDoneTask = (task) => {
-    task.done = true;
-    updateTask(task)
-      .then(() => this.updateTaskList());
-  };
-
-  handleInProgressTask = (task) => {
-    task.done = false;
+  handleChangeProgressTask = (task, status) => {
+    task.done = status;
     updateTask(task)
       .then(() => this.updateTaskList());
   };
@@ -76,13 +68,13 @@ export class TaskListContainer extends Component {
                           fontSize="20px"
                           color="blue"
                           rotate={task.done === false}
-                          onClick={() => this.handleInProgressTask(task)}
+                          onClick={() => this.handleChangeProgressTask(task, false)}
                         />
                         <Ionicon
                           icon="ios-checkmark-circle-outline"
                           fontSize="20px"
                           color="green"
-                          onClick={() => this.handleDoneTask(task)}
+                          onClick={() => this.handleChangeProgressTask(task, true)}
                         />
                       </React.Fragment>
                     }

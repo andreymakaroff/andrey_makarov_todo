@@ -1,16 +1,9 @@
-import {
-  SET_USER,
-  UPDATE_USER,
-  REMOVE_USER,
-  SET_TASK_LIST,
-  UPDATE_TASK_LIST,
-  SET_INFO,
-} from './actions';
+import { REMOVE_USER, SET_INFO, SET_TASK_LIST, SET_USER, UPDATE_TASK_LIST, UPDATE_USER, } from './actions';
 
-// ячейка юзер в сторе
+// cell "user" in store
 export const user = (state = false, { type, data }) => {
   switch (type) {
-    case UPDATE_USER:   // если то же самое
+    case UPDATE_USER:// the same
     case SET_USER: {
       return data;
     }

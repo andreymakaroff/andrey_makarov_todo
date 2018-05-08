@@ -19,7 +19,7 @@ export class Registration extends Component {
     registrationUser(fields)
       .then(() => {
         this.setState({ loading: false });
-        this.props.history.push('/thank_you_page');
+        this.props.history.push('/thank-you-page');
       })
       .catch((error) => {
         this.setState({ loading: false });
@@ -33,7 +33,7 @@ export class Registration extends Component {
 
       loading ? <Loader /> :
       <div className="registrationForm__wrapper">
-        <Form onSubmit={fields => this.submit(fields)} />
+        <Form onSubmit={this.submit} />
         <Link
           className="registrationForm__link"
           to="/login"

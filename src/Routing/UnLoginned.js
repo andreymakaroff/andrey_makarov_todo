@@ -15,7 +15,7 @@ export class UnLoginned extends Component {
               component={Registration}
             />
             <Route
-              path="/thank_you_page"
+              path="/thank-you-page"
               component={ThankYouPage}
             />
             <Route
