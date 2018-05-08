@@ -7,22 +7,22 @@ import { Routing } from './Routing/';
 import { Header, Footer } from './parts/';
 import { Loader } from './pages/';
 import { checkUser, errObserver } from './services';
-import { setUser } from './store';
+import { getUser, removeUser } from './store';
 
 export class AppComponent extends Component {
-  setLoginState = (user) => {
-    this.props.dispatch(setUser(user));
-  };
+
 
   componentDidMount() {
-    checkUser()
-      .then((data) => {
-        this.setLoginState(data);
-      })
-      .catch((err) => {
-        this.setLoginState(null);
-        console.log('cant login', err);
-      });
+    // checkUser()
+    //   .then((user) => {
+    //     this.props.dispatch(setUser(user));
+    //   })
+    //   .catch(err => {
+    //     this.props.dispatch(removeUser());
+    //     console.log('Can\'t login', err);
+    //   });
+
+    this.props.dispatch(getUser());
 
     errObserver.addObserver((err = 'Something wrong') => this.props.user !== false && this.container.error(
       <strong>{err}</strong>,
@@ -43,7 +43,7 @@ export class AppComponent extends Component {
         <Header />
         <main className="container main">
           {
-            user !== undefined ?
+            user !== false ?
               <Routing
                 user={user}
               /> :
