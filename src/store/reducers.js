@@ -1,4 +1,4 @@
-import { REMOVE_USER, SET_INFO, SET_TASK_LIST, SET_USER, UPDATE_TASK_LIST, UPDATE_USER, } from './actions';
+import {REMOVE_USER, SET_ERROR, SET_INFO, SET_TASK_LIST, SET_USER, UPDATE_TASK_LIST, UPDATE_USER,} from './actions/actions';
 
 // cell "user" in store
 export const user = (state = false, { type, data }) => {
@@ -29,6 +29,16 @@ export const taskList = (state = [], { type, data }) => {
 export const info = (state = {}, { type, data }) => {
   switch (type) {
     case SET_INFO: {
+      return data;
+    }
+  }
+
+  return state;
+};
+
+export const error = (state = '', { type, data = '' }) => {
+  switch (type) {
+    case SET_ERROR: {
       return data;
     }
   }

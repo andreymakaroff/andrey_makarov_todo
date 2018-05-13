@@ -2,25 +2,20 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './login.scss';
-
-import { login } from '../../../services';
 import { Form } from '../../../components/Form';
-import { updateUser } from '../../../store';
+
+import { loginUser } from '../../../store';
 
 export class LoginContainer extends Component {
   submit = (fields) => {
-    login(fields)
-      .then((data) => {
-        this.props.dispatch(updateUser(data));
-      })
-      .catch(err => console.log('Can\'t login:', err));
+    this.props.dispatch(loginUser(fields));
   };
 
   render() {
     return (
       <div className="loginForm__wrapper">
         <Form
-          onSubmit={fields => this.submit(fields)}
+          onSubmit={this.submit}
           excluded={['firstName', 'lastName', 'repeatPassword']}
           skipped={['firstName', 'lastName', 'repeatPassword']}
         />

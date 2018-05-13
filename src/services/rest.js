@@ -1,8 +1,9 @@
-import {errObserver} from "./observer";
+import { store, setError } from '../store';
 
 const BASE_URL = 'http://localhost:8081/';
 
 export const request = (url, method = 'GET', body, options) => {
+  const isUserChecking = url.includes('checkUser');
   const fetchOpts = {
     method,
     credentials: 'include',
@@ -21,7 +22,9 @@ export const request = (url, method = 'GET', body, options) => {
       return Promise.resolve(data);
     });
 
-  promise.catch(error => errObserver.trigger(String(error)));
+  promise.catch(error => !isUserChecking && store.dispatch(
+    setError(String(error))
+  ));
 
   return promise;
 };

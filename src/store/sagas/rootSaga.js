@@ -1,9 +1,11 @@
 import { all } from 'redux-saga/effects';
 
-import { watchUser } from './userSagas';
+import {watchUser, watchLoginUser, watchLogoutUserUser} from './userSagas';
 
 export function* rootSaga() {
   yield all([
-    watchUser()
+    watchUser(),
+    watchLoginUser(),
+    watchLogoutUserUser()
   ]);
 }

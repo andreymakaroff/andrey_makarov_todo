@@ -22,7 +22,7 @@ export class ProfileContainer extends React.Component {
         // this.setState({ loading: false });
         this.props.dispatch(updateUserStore(fields));
       })
-      .then(this.props.history.push('/'))
+      .then(() => this.props.history.push('/'))
       .catch(err => {
         // this.setState({ loading: false });
         console.log('Can\'t change profile:', err);

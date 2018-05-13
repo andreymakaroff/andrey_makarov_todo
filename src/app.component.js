@@ -6,33 +6,27 @@ import './styles.scss';
 import { Routing } from './Routing/';
 import { Header, Footer } from './parts/';
 import { Loader } from './pages/';
-import { checkUser, errObserver } from './services';
 import { getUser, removeUser } from './store';
+import { setError } from "./store";
 
 export class AppComponent extends Component {
 
-
-  componentDidMount() {
-    // checkUser()
-    //   .then((user) => {
-    //     this.props.dispatch(setUser(user));
-    //   })
-    //   .catch(err => {
-    //     this.props.dispatch(removeUser());
-    //     console.log('Can\'t login', err);
-    //   });
-
-    this.props.dispatch(getUser());
-
-    errObserver.addObserver((err = 'Something wrong') => this.props.user !== false && this.container.error(
-      <strong>{err}</strong>,
-      <em>Error</em>
-    ));
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.error) {
+      this.container.error(  // this.container  - like link for ref
+        <strong>{this.props.error}</strong>,
+        <em>Error</em>
+      );
+      this.props.dispatch(setError(''));
+    }
   }
 
+  componentDidMount() {
+    this.props.dispatch(getUser());
+  }
 
   render() {
-    const { user } = this.props;
+    const { user, error } = this.props;
 
     return (
       <React.Fragment>
@@ -56,8 +50,9 @@ export class AppComponent extends Component {
   }
 }
 
-const mapStoreToProps = ({ user }) => ({
-  user
+const mapStoreToProps = ({ user, error }) => ({
+  user,
+  error
 });
 
 export const App = withRouter(connect(mapStoreToProps)(AppComponent));
