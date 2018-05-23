@@ -6,8 +6,12 @@ export class Form extends Component {
       { id: 'email', label: 'email', reg: /^\w+@\w+\.[a-z]{2,}$/ },
       { id: 'firstName', label: 'first name', reg: /^[^ ]{3,20}$/ },
       { id: 'lastName', label: 'last name', reg: /^[^ ]{3,20}$/ },
-      { id: 'password', label: 'password', reg: /^[^ ]{6,20}$/, secure: true },
-      { id: 'repeatPassword', label: 'repeat password', reg: /^[^ ]{6,20}$/, secure: true }
+      {
+        id: 'password', label: 'password', reg: /^[^ ]{6,20}$/, secure: true
+      },
+      {
+        id: 'repeatPassword', label: 'repeat password', reg: /^[^ ]{6,20}$/, secure: true
+      }
     ];
   }
 
@@ -69,10 +73,7 @@ export class Form extends Component {
 
     event.preventDefault();
 
-
-    // console.log(this.props.excluded.indexOf('repeatPassword')
-
-    if ((this.props.excluded.indexOf('repeatPassword') === -1)&&(state.password.value !== state.repeatPassword.value)) {
+    if ((this.props.excluded.indexOf('repeatPassword') === -1) && (state.password.value !== state.repeatPassword.value)) {
       error = 'Passwords should be the same';
     }
 
@@ -155,5 +156,5 @@ Form.defaultProps = {
   excluded: [],
   disabled: [],
   skipped: [],
-  onSubmit: _=>_
+  onSubmit: _ => _
 };

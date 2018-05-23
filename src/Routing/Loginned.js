@@ -1,9 +1,12 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
-
-import { TaskList, Task, Main, NotFound, Contacts, Profile } from '../pages';
+import { Async } from '../components';
+import { Main, NotFound, Contacts, Task } from '../pages';
 
 export class Loginned extends Component {
   render() {
+    const TaskList = () => <Async name="TaskList" path="pages/loginned/TaskList" />;
+    // const Task = () => <Async name="Task" path="pages/loginned/Task" />;
+    const Profile = () => <Async name="Profile" path="pages/loginned/Profile" />;
     return (
       <Switch>
         <Route

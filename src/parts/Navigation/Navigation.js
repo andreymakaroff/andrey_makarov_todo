@@ -1,9 +1,11 @@
 // import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 
 import './navigation.scss';
+import {connect} from "react-redux";
+import {AppComponent} from "../../app.component";
 
-export const Navigation = ({ user }) => {
+export const NavigationInner = ({ user }) => {
   return (
     <nav>
       <ul>
@@ -60,3 +62,5 @@ export const Navigation = ({ user }) => {
   )
 };
 
+
+export const Navigation = withRouter(NavigationInner);   // not work

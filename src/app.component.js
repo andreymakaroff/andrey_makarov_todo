@@ -6,8 +6,7 @@ import './styles.scss';
 import { Routing } from './Routing/';
 import { Header, Footer } from './parts/';
 import { Loader } from './pages/';
-import { getUser, removeUser } from './store';
-import { setError } from "./store";
+import { getUser, setError } from './store';
 
 export class AppComponent extends Component {
 
@@ -26,7 +25,7 @@ export class AppComponent extends Component {
   }
 
   render() {
-    const { user, error } = this.props;
+    const { user } = this.props;
 
     return (
       <React.Fragment>
