@@ -7,6 +7,6 @@ export * from './unloginned/ThankYouPage';
 export * from './unloginned/Contacts';
 
 export * from './loginned/Main';
-export * from './loginned/Profile';
-export * from './loginned/TaskList';
+// export * from './loginned/Profile'; //for dynamic import
+// export * from './loginned/TaskList';  //for dynamic import
 export * from './loginned/Task';
