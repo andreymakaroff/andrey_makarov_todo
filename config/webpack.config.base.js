@@ -13,9 +13,8 @@ const plugins = [
   new HtmlWebpackPlugin({
     title: 'Test app',
     template: 'index.html',
-    favicon: 'images/favicon.ico'
+    // favicon: 'images/favicon.ico'
   }),
-  new webpack.HotModuleReplacementPlugin(),
   new webpack.ProvidePlugin({
     React: 'react',
     Component: ['react', 'Component']
@@ -92,14 +91,4 @@ module.exports = {
       chunks: 'all'
     },
   },
-
-  mode: 'development',
-
-  devServer: {
-    contentBase: path.resolve('dist'),
-    publicPath: '/',
-    port: 9090,
-    hot: true,
-    historyApiFallback: true
-  }
 };
