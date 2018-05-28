@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const settings = Object.assign({}, baseWebpack, {
   plugins: [
     ...baseWebpack.plugins,
-    new CleanWebpackPlugin('dist', { root: `${__dirname}/../`})
+    new CleanWebpackPlugin('dist', { root: `${__dirname}/../` })
   ],
   output: {
     filename: 'bundle-[name].js'
@@ -13,3 +13,4 @@ const settings = Object.assign({}, baseWebpack, {
 });
 
 module.exports = settings;
+

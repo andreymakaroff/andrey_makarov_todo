@@ -2,11 +2,12 @@
   "presets":  [["es2015", { "modules": false }], "react"],
   "env": {
     "test": {
-      "presets": ["es2015", "react"],
+      "presets":[
+        "es2015",
+        "react"],
       "plugins": [
         "transform-es2015-modules-commonjs",
-        "dynamic-import-node",
-        "transform-class-properties"
+        "dynamic-import-node"
       ]
     }
   }

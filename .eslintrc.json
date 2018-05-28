@@ -5,6 +5,7 @@
   },
   "globals" : {
     "React": true,
+    "Component": true,
     "PropTypes": true
   },
   "rules": {
@@ -19,6 +20,7 @@
     "import/no-unresolved": "off",
     "import/no-extraneous-dependencies": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-undef": [1, { "allowGlobals": true }],
     "react/react-in-jsx-scope": 0,
     "react/forbid-prop-types": "off",
     "react/sort-comp": 0,

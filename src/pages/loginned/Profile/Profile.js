@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import './profile.scss';
 import { Form } from '../../../components/Form';
-import { updateUser } from '../../../services';
-import { updateUser as updateUserStore } from '../../../store';
+import { updateUser } from '../../../store';
 import { Loader } from '../../common/Loader';
 
 export class ProfileContainer extends React.Component {
@@ -17,16 +16,8 @@ export class ProfileContainer extends React.Component {
 
   submit = (fields) => {
     this.setState({ loading: true });
-    updateUser(fields)
-      .then(() => {
-        // this.setState({ loading: false });
-        this.props.dispatch(updateUserStore(fields));
-      })
-      .then(() => this.props.history.push('/'))
-      .catch(err => {
-        // this.setState({ loading: false });
-        console.log('Can\'t change profile:', err);
-      });
+    this.props.dispatch(updateUser(fields));
+    this.props.history.push('/');
   };
 
   render() {
@@ -35,18 +26,18 @@ export class ProfileContainer extends React.Component {
     return (
 
       loading ? <Loader /> :
-        <main className="main pt-4">
-          <Form
-            data={{
+      <main className="main pt-4">
+        <Form
+          data={{
               email,
               firstName,
               lastName
             }}
-            onSubmit={this.submit}
-            disabled={['email']}
-            skipped={['password', 'repeatPassword']}
-          />
-        </main>
+          onSubmit={this.submit}
+          disabled={['email']}
+          skipped={['password', 'repeatPassword']}
+        />
+      </main>
     );
   }
 }
@@ -56,4 +47,4 @@ const mapStoreToProps = ({ user }) => ({
   user
 });
 
-export const Profile =  withRouter(connect(mapStoreToProps)(ProfileContainer));
+export const Profile = withRouter(connect(mapStoreToProps)(ProfileContainer));

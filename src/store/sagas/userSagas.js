@@ -1,14 +1,16 @@
 import { takeEvery, put } from 'redux-saga/effects';
 
-import { GET_USER_ASYNC,
+import {
+  GET_USER_ASYNC,
   LOGIN_USER_ASYNC,
   LOGOUT_USER_ASYNC,
+  UPDATE_USER_ASYNC,
   setUser,
   removeUser,
 } from '../actions/actions';
 
 
-import { checkUser, login, logout } from '../../services';
+import { checkUser, login, logout, updateUser } from '../../services';
 
 export function* getUser() {
   try {
@@ -24,6 +26,20 @@ export function* watchUser() {
 }
 
 
+
+export function* updateUserr({ data }) {
+  try {
+    const user = yield updateUser(data);
+    yield put(setUser(user));
+  } catch (err) {}
+}
+
+export function* watchUpdateUser() {
+  yield takeEvery(UPDATE_USER_ASYNC, updateUserr);
+}
+
+
+
 export function* loginUser({ data }) {
   try {
     const user = yield login(data);
@@ -35,10 +51,12 @@ export function* watchLoginUser() {
   yield takeEvery(LOGIN_USER_ASYNC, loginUser);
 }
 
+
+
 export function* logoutUser() {
   try {
     yield logout();
-    yield put(removeUser());    // => store.dispatch(type: REMOVE_USER)
+    yield put(removeUser()); // => store.dispatch(type: REMOVE_USER)
   } catch (err) {}
 }
 

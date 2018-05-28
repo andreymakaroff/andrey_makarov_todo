@@ -1,9 +1,9 @@
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
 const baseWebpack = require('./webpack.config.base');
 
-module.exports = {
-  plugins: [ ...baseWebpack.plugins, new webpack.HotModuleReplacementPlugin()],
+const settings = Object.assign({}, baseWebpack, {
+  plugins: [...baseWebpack.plugins, new webpack.HotModuleReplacementPlugin()],
   devServer: {
     contentBase: path.resolve('dist'),
     publicPath: '/',
@@ -11,6 +11,9 @@ module.exports = {
     hot: true,
     historyApiFallback: true
   },
-  mode: 'development',
-  devtool: 'inline-source-map'
-};
+  devtool: 'inline-source-map',
+  mode: 'development'
+});
+
+module.exports = settings;
+
