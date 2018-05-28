@@ -11,6 +11,7 @@ const plugins = [
   new HtmlWebpackPlugin({
     title: 'Test app',
     template: 'index.html',
+    chunksSortMode: 'none',
     favicon: 'images/favicon.ico'
   }),
   new MiniCssExtractPlugin({
