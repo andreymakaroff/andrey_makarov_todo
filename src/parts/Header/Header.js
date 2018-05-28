@@ -3,15 +3,11 @@ import Ionicon from 'react-ionicons';
 
 import './header.scss';
 import { Navigation } from '../Navigation';
-import { logout } from '../../services';
-import { logoutUser } from '../../store';
+import { logoutUserAsync } from '../../store';
 
 export class HeaderContainer extends React.Component {
   handleLogout = () => {
-    logout()
-      .then(() => {
-        this.props.dispatch(logoutUser());
-      });
+    this.props.dispatch(logoutUserAsync());
   };
 
   render() {

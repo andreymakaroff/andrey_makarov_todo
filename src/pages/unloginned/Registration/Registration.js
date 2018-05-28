@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './registration.scss';
 
 import { Loader } from '../../common/Loader';
-import { registrationUser } from '../../../services';
+import { registrationUserFetch } from '../../../services';
 import { Form } from '../../../components/Form';
 
 export class Registration extends Component {
@@ -16,7 +16,7 @@ export class Registration extends Component {
 
   submit = (fields) => {
     this.setState({loading: true});
-    registrationUser(fields)
+    registrationUserFetch(fields)
       .then(() => {
         this.setState({ loading: false });
         this.props.history.push('/thank-you-page');

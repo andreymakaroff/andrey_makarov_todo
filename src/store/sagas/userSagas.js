@@ -7,14 +7,14 @@ import {
   UPDATE_USER_ASYNC,
   setUser,
   removeUser,
-} from '../actions/actions';
+} from '../actions';
 
 
-import { checkUser, login, logout, updateUser } from '../../services';
+import { checkUserFetch, loginFetch, logoutFetch, updateUserFetch } from '../../services';
 
 export function* getUser() {
   try {
-    const user = yield checkUser();
+    const user = yield checkUserFetch();
     yield put(setUser(user));
   } catch (err) {
     yield put(setUser(null));
@@ -26,23 +26,21 @@ export function* watchUser() {
 }
 
 
-
-export function* updateUserr({ data }) {
+export function* updateUser({ data }) {
   try {
-    const user = yield updateUser(data);
+    const user = yield updateUserFetch(data);
     yield put(setUser(user));
   } catch (err) {}
 }
 
 export function* watchUpdateUser() {
-  yield takeEvery(UPDATE_USER_ASYNC, updateUserr);
+  yield takeEvery(UPDATE_USER_ASYNC, updateUser);
 }
-
 
 
 export function* loginUser({ data }) {
   try {
-    const user = yield login(data);
+    const user = yield loginFetch(data);
     yield put(setUser(user));
   } catch (err) {}
 }
@@ -52,16 +50,14 @@ export function* watchLoginUser() {
 }
 
 
-
 export function* logoutUser() {
   try {
-    yield logout();
+    yield logoutFetch();
     yield put(removeUser()); // => store.dispatch(type: REMOVE_USER)
   } catch (err) {}
 }
 
-export function* watchLogoutUserUser() {
+export function* watchLogoutUser() {
   yield takeEvery(LOGOUT_USER_ASYNC, logoutUser);
 }
 
-// update logout login

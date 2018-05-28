@@ -1,4 +1,15 @@
-import {REMOVE_USER, SET_ERROR, SET_INFO, SET_TASK_LIST, SET_USER, UPDATE_TASK_LIST, UPDATE_USER,} from './actions/actions';
+import {
+  DELETE_TASK,
+  REMOVE_USER,
+  SET_ERROR,
+  SET_INFO,
+  SET_TASK_LIST,
+  SET_USER,
+  UPDATE_TASK_LIST,
+  UPDATE_USER,
+  UPDATE_TASK,
+  CREATE_TASK
+} from './actions';
 
 // cell "user" in store
 export const user = (state = false, { type, data }) => {
@@ -20,6 +31,23 @@ export const taskList = (state = [], { type, data }) => {
     case SET_TASK_LIST:
     case UPDATE_TASK_LIST: {
       return data;
+    }
+
+    case CREATE_TASK: {
+      const newState = [...state];
+      newState[data.day].push(data);
+      return newState;
+    }
+
+    case UPDATE_TASK: {
+      const newState = [...state];
+      const index = newState[data.day].findIndex(el => el.id === data.id);
+      newState[data.day][index] = data;
+      return newState;
+    }
+
+    case DELETE_TASK: {
+      return state.map(day => day.filter(el => el.id !== data.id));
     }
   }
 

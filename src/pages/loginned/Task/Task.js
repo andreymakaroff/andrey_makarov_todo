@@ -1,11 +1,10 @@
-import {
-  getTask,
-  updateTask,
-  createTask
-} from '../../../services/index';
-import { shortDaysWeek } from '../../../constants/index';
+import { connect } from 'react-redux';
 
-export class Task extends Component {
+import { getTask } from '../../../services';
+import { shortDaysWeek } from '../../../constants/index';
+import { createTaskAsync, updateTaskAsync } from '../../../store';
+
+export class TaskContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -34,19 +33,17 @@ export class Task extends Component {
 
   handleUpdateTask = (event) => {
     const { task } = this.props.match.params;
-
     event.preventDefault();
 
     if (task === 'newTask') {
       const { day, title, description } = this.state;
-      createTask({ day, title, description })
-        // .then(console.log('task update'))
-        .then(this.props.history.push('/tasks'));
+      this.props.createTask({ day, title, description });
+      this.props.history.push('/tasks');
       return;
     }
 
-    updateTask(this.state)
-      .then(this.props.history.push('/tasks'));
+    this.props.updateTask(this.state);
+    this.props.history.push('/tasks');
   };
 
   onChange = (event) => {
@@ -54,7 +51,6 @@ export class Task extends Component {
 
     this.setState({ [target.name]: target.value });
   };
-
   render() {
     const { title, description, day } = this.state;
 
@@ -91,3 +87,10 @@ export class Task extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  updateTask(data) { dispatch(updateTaskAsync(data)); },
+  createTask(data) { dispatch(createTaskAsync(data)); }
+});
+
+export const Task = connect(null, mapDispatchToProps)(TaskContainer);

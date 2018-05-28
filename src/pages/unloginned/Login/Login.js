@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import './login.scss';
 import { Form } from '../../../components/Form';
 
-import { loginUser } from '../../../store';
+import { loginUserAsync } from '../../../store';
 
 export class LoginContainer extends Component {
   submit = (fields) => {
-    this.props.dispatch(loginUser(fields));
+    this.props.dispatch(loginUserAsync(fields));
   };
 
   render() {

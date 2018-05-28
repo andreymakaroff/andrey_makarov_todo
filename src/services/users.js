@@ -1,21 +1,21 @@
 import { rest } from "./rest";
 
-export const login = (data = {}) => rest.post(
+export const loginFetch = (data = {}) => rest.post(
   'public/login',
   data,
 );
 
-export const registrationUser = (data = {}) => rest.post(
+export const registrationUserFetch = (data = {}) => rest.post(
   'public/user',
   data,
 );
 
-export const updateUser = (data = {}) => rest.put(
+export const updateUserFetch = (data = {}) => rest.put(
   'user',
   data,
 );
 
-export const checkUser = () => rest.get('public/checkUser');
+export const checkUserFetch = () => rest.get('public/checkUser');
 
-export const logout = () => rest.get('logout');
+export const logoutFetch = () => rest.get('logout');
 

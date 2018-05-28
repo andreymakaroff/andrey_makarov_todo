@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './profile.scss';
 import { Form } from '../../../components/Form';
-import { updateUser } from '../../../store';
+import { updateUserAsync } from '../../../store';
 import { Loader } from '../../common/Loader';
 
 export class ProfileContainer extends React.Component {
@@ -16,7 +16,7 @@ export class ProfileContainer extends React.Component {
 
   submit = (fields) => {
     this.setState({ loading: true });
-    this.props.dispatch(updateUser(fields));
+    this.props.dispatch(updateUserAsync(fields));
     this.props.history.push('/');
   };
 

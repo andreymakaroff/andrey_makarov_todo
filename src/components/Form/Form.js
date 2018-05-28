@@ -26,16 +26,22 @@ export class Form extends Component {
     this.fields.forEach(field => (this.state[field.id] = { value: '' }));
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    if (!nextProps.data) {
+  static getDerivedStateFromProps({ data }, state) {
+    if (!data) {
       return null;
     }
 
-    const state = {};
+    const isFieldsChanged = Form.fields.some(({ id }) => data[id] !== state[id].value && state[id].value);
 
-    Form.fields.forEach(({ id }) => (state[id] = { value: nextProps.data[id] }));
+    if (!isFieldsChanged) {
+      const state = {};
 
-    return state;
+      Form.fields.forEach(({ id }) => (state[id] = { value: data[id] }));
+
+      return state;
+    }
+
+    return null;
   }
 
   setValue = ({ target }) => {

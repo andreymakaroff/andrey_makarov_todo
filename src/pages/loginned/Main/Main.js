@@ -2,13 +2,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './main.scss';
-import { getInfo } from '../../../services';
-import { setInfo } from '../../../store';
+import { getInfoAsync } from '../../../store';
 
 export class MainContainer extends React.Component {
   componentDidMount() {
-    getInfo()
-      .then(info => this.props.dispatch(setInfo(info)));
+    this.props.getInfo();
   }
 
   render() {
@@ -42,4 +40,8 @@ const mapStoreToProps = ({ user, info }) => ({
   info
 });
 
-export const Main = connect(mapStoreToProps)(MainContainer);
+const mapDispatchToProps = dispatch => ({
+  getInfo() { dispatch(getInfoAsync()); }
+});
+
+export const Main = connect(mapStoreToProps, mapDispatchToProps)(MainContainer);
